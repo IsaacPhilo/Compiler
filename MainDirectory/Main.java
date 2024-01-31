@@ -31,7 +31,7 @@ class Main{
 }
 public static void main(String[] args){
     FileWriter output = new FileWriter(new File("compiled.ll")); //Create the file to which we should output the llvm code
-    output.write(PREAMBLE); //This goes before the generated code
+    output.write(Main.PREAMBLE); //This goes before the generated code
 
-    output.write(POSTAMBLE); //This goes after the generated code
+    output.write(Main.POSTAMBLE); //This goes after the generated code
 }
