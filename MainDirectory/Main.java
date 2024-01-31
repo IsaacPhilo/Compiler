@@ -1,3 +1,5 @@
+import java.io.FileWriter;
+import java.io.File;
 class Main{
     public static final String PREAMBLE = "; ModuleID = 'examples/test1'\n" +
             "source_filename = \"examples/test1\"\n" +
@@ -26,11 +28,10 @@ class Main{
             "!3 = !{i32 7, !\"uwtable\", i32 1}\n" +
             "!4 = !{i32 7, !\"frame-pointer\", i32 2}\n" +
             "!5 = !{!\"Ubuntu clang version 10.0.0-4ubuntu1\"}";
+}
+public static void main(String[] args){
+    FileWriter output = new FileWriter(new File("compiled.ll")); //Create the file to which we should output the llvm code
+    output.write(PREAMBLE); //This goes before the generated code
 
-    public static void main(String[] args){
-       FileWriter output = new FileWriter(new File("compiled.ll")); //Create the file to which we should output the llvm code
-       output.write(PREAMBLE); //This goes before the generated code
-
-       output.write(POSTAMBLE); //This goes after the generated code
-    }
+    output.write(POSTAMBLE); //This goes after the generated code
 }
