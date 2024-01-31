@@ -1,6 +1,8 @@
 import java.io.FileWriter;
 import java.io.File;
-class Main{
+import java.io.IOException;
+
+class Main {
     public static final String PREAMBLE = "; ModuleID = 'examples/test1'\n" +
             "source_filename = \"examples/test1\"\n" +
             "target datalayout = \"e-m:e-p270:32:32-p271:32:32-p272:64:64-i64:64-f80:128-n8:16:32:64-S128\"\n" +
@@ -28,10 +30,17 @@ class Main{
             "!3 = !{i32 7, !\"uwtable\", i32 1}\n" +
             "!4 = !{i32 7, !\"frame-pointer\", i32 2}\n" +
             "!5 = !{!\"Ubuntu clang version 10.0.0-4ubuntu1\"}";
-}
-public static void main(String[] args){
-    FileWriter output = new FileWriter(new File("compiled.ll")); //Create the file to which we should output the llvm code
-    output.write(Main.PREAMBLE); //This goes before the generated code
 
-    output.write(Main.POSTAMBLE); //This goes after the generated code
+    public static void main(String[] args) {
+        FileWriter output = null; //Create the file to which we should output the llvm code
+        try {
+            output = new FileWriter(new File("compiled.ll"));
+            output.write(Main.PREAMBLE); //This goes before the generated code
+
+            output.write(Main.POSTAMBLE); //This goes after the generated code
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }
