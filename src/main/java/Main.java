@@ -31,7 +31,7 @@ class Main {
             "!4 = !{i32 7, !\"frame-pointer\", i32 2}\n" +
             "!5 = !{!\"Ubuntu clang version 10.0.0-4ubuntu1\"}";
 
-    public static void main(String[] args) {
+    public static void main(String[] args) {//the command-line argument should be the file-name. No decision yet on whether we need the absolute path.
         FileWriter output = null; //Create the file to which we should output the llvm code
         try {
             output = new FileWriter(new File("compiled.ll"));
