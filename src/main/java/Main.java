@@ -33,14 +33,34 @@ class Main {
 
     public static void main(String[] args) {//the command-line argument should be the file-name. No decision yet on whether we need the absolute path.
         FileWriter output = null; //Create the file to which we should output the llvm code
+        boolean interpret = false;
         try {
             output = new FileWriter(new File("compiled.ll"));
             output.write(Main.PREAMBLE); //This goes before the generated code
-
             output.write(Main.POSTAMBLE); //This goes after the generated code
+
+            Scanner sc = null;
+            if(args.length > 0){
+                sc = new Scanner(new File(args[0]));
+                compileFile(sc, output);
+            }
+            else {
+                sc = new Scanner(System.in);
+                interpret = true;
+                interpretInput(sc, output);
+            }
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static void compileFile(Scanner sc, FileWriter output){
+
+    }
+
+    public static void interpretInput(Scanner sc, FileWriter output){//I won't do this for now
+
     }
 
 }
