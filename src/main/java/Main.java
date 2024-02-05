@@ -59,7 +59,7 @@ class Main {
 
     }
 
-    public static void interpretInput(Scanner sc, FileWriter output){//I won't do this for now
+    public static void interpretInput(Scanner sc, FileWriter output){//I'll hold off on this
 
     }
 
