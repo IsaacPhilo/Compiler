@@ -1,6 +1,7 @@
 import java.io.FileWriter;
 import java.io.File;
 import java.io.IOException;
+import java.util.Scanner;
 
 class Main {
     public static final String PREAMBLE = "; ModuleID = 'examples/test1'\n" +

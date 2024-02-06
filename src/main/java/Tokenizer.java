@@ -1,0 +1,37 @@
+import java.util.Scanner;
+import java.util.Stack;
+
+public class Tokenizer {//1 stack adds as many characters as it can to itself, 2nd stack pops from itself onto the put_back stack until itself contains a valid token, and then returns that token; then, the character at index 4 would be on the put_back stack beneath the character at index 3. The put_back stack is just to back.
+    Stack<Character> stack;
+    Scanner sc;
+
+    public Tokenizer(Scanner inputScanner){
+        sc = inputScanner;
+        sc.useDelimiter("");
+    }
+
+    char getCharacter(){//Will get a single character, either from the stack or from the scanner depending on whether the stack has content
+        if(!stack.empty()){
+            return stack.pop();
+        }
+        else{
+            return sc.next().charAt(0);//this is assuming that the "useDelimiter("")" does result in one-character strings being returned
+        }
+    }
+
+    void putBack(char c){//For when the scanner gone too far while scanning
+        stack.push(c);
+    }
+
+    ASTNode getToken(){//will return the next token
+        ASTNode node = null;
+        String s = "";
+        boolean tooFar = false;//tooFar will become true if we need to put characters onto the stack
+        while(!tooFar){
+            char c = getCharacter();
+
+        }
+
+        return node;
+    }
+}
