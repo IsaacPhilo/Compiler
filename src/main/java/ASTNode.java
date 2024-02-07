@@ -1,7 +1,17 @@
+import java.util.ArrayList;
 import java.util.List;
-public interface ASTNode {
-    String getOperator();
-    List<ASTNode> getChildren();
+
+public abstract class ASTNode {
+    protected List<ASTNode> children;
+    protected ASTNode(){
+        children = new ArrayList<>();
+    }
+    abstract String getRegex();
+    abstract String getContent();
+    List<ASTNode> getChildren(){
+        return children;
+    };
+    abstract boolean isOperator();
 }
 /*
 (we're guaranteeing for now that the previous token parse passed
