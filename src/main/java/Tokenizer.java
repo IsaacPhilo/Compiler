@@ -35,3 +35,16 @@ public class Tokenizer {//1 stack adds as many characters as it can to itself, 2
         return node;
     }
 }
+/*
+Parse scanner char by char;
+if we've gone too far, take characters
+from (the stack that contains the most recently accessed character at the top),
+and put these into another stack which contains
+(the characters accessible in the scanner (original) order)
+and use these characters the next time a token is scanned
+(which is possible by examining whether the persistent stack contains characters.)
+
+Token type is determined by regex-matching to predefined token regexes
+The moment at which no regex matches is when we go back one or more characters
+
+*/
