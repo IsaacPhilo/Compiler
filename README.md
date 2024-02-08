@@ -1,7 +1,7 @@
-I began this project in the Introduction to Compiler Design extracurricular certification course at UT Dallas, in the spring of 2024.
+<p align = "center" markdown = "1">I began this project in the Introduction to Compiler Design extracurricular certification course at UT Dallas, in the spring of 2024.</p>
 
-This compiler's purpose is to turn code into an LLVM IR file for further compilation.
+<p align = "center" markdown = "1">This compiler's purpose is to turn code into an LLVM IR file for further compilation.</p>
 
-See [the course page](https://xarkenz.github.io/icd) for the relevant course materials.
+<p align = "center" markdown = "1">See [the course page](https://xarkenz.github.io/icd) for the relevant course materials.</p>
 
-This project is also an exploration of extensible, self-describing hierarchical class design.
+<p align = "center" markdown = "1">This project is also an exploration of extensible, self-describing hierarchical class design.</p>
