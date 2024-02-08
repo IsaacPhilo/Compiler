@@ -1,3 +1,4 @@
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,9 +13,49 @@ public abstract class ASTNode {
      */
     public String getContent(){return content;};
 
+
     //default static methods
-    public static String getRegex(){return "";};
+    public static String getRegex(){return "";}
+
+    /**
+     * A version of this method that accepts a subclass type, and uses reflection to get the version of this method in the subclass
+     * @param classType The Class object representing the particular subclass in question
+     * @return The return value of the subclass's implementation of the getRegex() method without arguments
+     */
+    public static String getRegex(Class<? extends ASTNode> classType){
+        if(!classType.equals(ASTNode.class)) {
+            try {
+                return (String)classType.getMethod("getRegex", null).invoke(null, null);
+            } catch (Exception e) {
+                System.out.println(e.toString());
+                return "";
+            }
+        }
+        else{
+            return getRegex();
+        }
+    };
+
     public static boolean isOperator(){return false;};
+
+    /**
+     *A version of this method that accepts a subclass type, and uses reflection to get the version of this method in the subclass
+     * @param classType The Class object representing the particular subclass in question
+     * @return The return value of the subclass's implementation of the isOperator() method without arguments
+     */
+    public static boolean isOperator(Class<? extends ASTNode> classType){//A version of this method that accepts a subclass type, and uses reflection to get the version of this method in the subclass
+        if(!classType.equals(ASTNode.class)) {
+            try {
+                return (Boolean)classType.getMethod("isOperator", null).invoke(null, null);
+            } catch (Exception e) {
+                System.out.println(e.toString());
+                return false;
+            }
+        }
+        else{
+            return isOperator();
+        }
+    };
 }
 /*
 (we're guaranteeing for now that the previous token parse passed

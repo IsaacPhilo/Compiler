@@ -91,12 +91,8 @@ class Main {
              */
             try {
                 Class nodeClass = n.getClass();
-
-                Method getRegex = nodeClass.getMethod("getRegex", null);
-                System.out.println("Regex: " + getRegex.invoke(null, null));
-
-                Method isOperator = nodeClass.getMethod("isOperator", null);
-                System.out.println("Is an operator: " + ((Boolean) isOperator.invoke(null, null) ? "yes" : "no"));
+                System.out.println("Regex: " + ASTNode.getRegex(nodeClass));
+                System.out.println("Is an operator: " + (ASTNode.isOperator(n.getClass()) ? "yes" : "no"));
             } catch (Exception e) {
                 System.out.println("ERROR: " + e.toString());
             }
