@@ -1,4 +1,4 @@
-This project began in the Introduction to Compiler Design extracurricular certification course at UT Dallas, in the spring of 2024.
+I began this project in the Introduction to Compiler Design extracurricular certification course at UT Dallas, in the spring of 2024.
 
 This compiler's purpose is to turn code into an LLVM IR file for further compilation.
 
