@@ -1,6 +1,6 @@
 public class ASTMinus extends Nonterminal{
-    public ASTMinus(NumberType... childNodes){
-        super("-", (ASTNode[])childNodes);
+    public <T extends ASTNode & NumberType<?>> ASTMinus(T... childNodes){
+        super("-", childNodes);
     }
 
     //Overridden static methods from superclass

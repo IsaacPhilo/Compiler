@@ -1,6 +1,9 @@
 import java.io.FileWriter;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 class Main {
@@ -33,27 +36,28 @@ class Main {
             "!5 = !{!\"Ubuntu clang version 10.0.0-4ubuntu1\"}";
 
     public static void main(String[] args) {//the command-line argument should be the file-name. No decision yet on whether we need the absolute path.
-        FileWriter output = null; //Create the file to which we should output the llvm code
-        boolean interpret = false;
-        try {
-            output = new FileWriter(new File("compiled.ll"));
-            output.write(Main.PREAMBLE); //This goes before the generated code
-            output.write(Main.POSTAMBLE); //This goes after the generated code
-
-            Scanner sc = null;
-            if(args.length > 0){
-                sc = new Scanner(new File(args[0]));
-                compileFile(sc, output);
-            }
-            else {
-                sc = new Scanner(System.in);
-                interpret = true;
-                interpretInput(sc, output);
-            }
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        testReflection();
+//        FileWriter output = null; //Create the file to which we should output the llvm code
+//        boolean interpret = false;
+//        try {
+//            output = new FileWriter(new File("compiled.ll"));
+//            output.write(Main.PREAMBLE); //This goes before the generated code
+//            output.write(Main.POSTAMBLE); //This goes after the generated code
+//
+//            Scanner sc = null;
+//            if(args.length > 0){
+//                sc = new Scanner(new File(args[0]));
+//                compileFile(sc, output);
+//            }
+//            else {
+//                sc = new Scanner(System.in);
+//                interpret = true;
+//                interpretInput(sc, output);
+//            }
+//
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
     }
 
     public static void compileFile(Scanner sc, FileWriter output){
@@ -62,6 +66,42 @@ class Main {
 
     public static void interpretInput(Scanner sc, FileWriter output){//I'll hold off on this
 
+    }
+
+    public static void testReflection(){
+        List<ASTNode> testList = new ArrayList<>();
+        testList.add(new ASTPlus());
+        testList.add(new ASTMinus());
+        testList.add(new ASTDivide());
+        testList.add(new ASTInt("100"));
+        for(ASTNode n: testList) {
+            System.out.println("Content: " + n.getContent());
+
+            /*
+            Calling static methods with RTTI:
+            I have written my code in such a way
+            that everything extending ASTNode
+            has a getRegex() and isOperator() method.
+            I want to retain these as static methods
+            so that they can be accessed without
+            creating any instances of their classes,
+            but I can't create an instance method of
+            the same name as the static method, so
+            I will use reflection here
+             */
+            try {
+                Class nodeClass = n.getClass();
+
+                Method getRegex = nodeClass.getMethod("getRegex", null);
+                System.out.println("Regex: " + getRegex.invoke(null, null));
+
+                Method isOperator = nodeClass.getMethod("isOperator", null);
+                System.out.println("Is an operator: " + ((Boolean) isOperator.invoke(null, null) ? "yes" : "no"));
+            } catch (Exception e) {
+                System.out.println("ERROR: " + e.toString());
+            }
+            System.out.println("-------");
+        }
     }
 
 }
