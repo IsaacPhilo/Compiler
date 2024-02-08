@@ -2,6 +2,6 @@ I began this project in the Introduction to Compiler Design extracurricular cert
 
 This compiler's purpose is to turn code into an LLVM IR file for further compilation.
 
-See [the course page](xarkenz.github.io/icd) for the relevant course materials.
+See [the course page](https://xarkenz.github.io/icd) for the relevant course materials.
 
 This project is also an exploration of extensible, self-describing hierarchical class design.
