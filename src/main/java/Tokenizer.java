@@ -8,7 +8,7 @@ public class Tokenizer {//1 stack adds as many characters as it can to itself, 2
 
     static {
         try {
-            NodeTypes = new Class[] {Class.forName("ASTPlus"), Class.forName("ASTMinus"), Class.forName("ASTMultiply"), Class.forName("ASTDivide"), Class.forName("ASTInt")};
+            NodeTypes = new Class[] {Class.forName("ASTPlus"), Class.forName("ASTMinus"), Class.forName("ASTMultiply"), Class.forName("ASTDivide"), Class.forName("ASTInt"), Class.forName("ASTIdentifier")};
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
@@ -40,7 +40,7 @@ public class Tokenizer {//1 stack adds as many characters as it can to itself, 2
         String s = "";
         boolean tooFar = false;//tooFar will become true if we need to put characters onto the stack
         while(!tooFar){
-            char c = getCharacter();
+
 
         }
 
