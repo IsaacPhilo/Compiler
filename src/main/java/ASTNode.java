@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class ASTNode {
+    public static final String regularExpression = "";
     protected String content;
     protected ASTNode(String inputContent){content = inputContent;}
 
@@ -15,7 +16,7 @@ public abstract class ASTNode {
 
 
     //default static methods
-    public static String getRegex(){return "";}
+    public static String getRegex(){return regularExpression;}
 
     /**
      * A version of this method that accepts a subclass type, and uses reflection to get the version of this method in the subclass
@@ -43,7 +44,7 @@ public abstract class ASTNode {
      * @param classType The Class object representing the particular subclass in question
      * @return The return value of the subclass's implementation of the isOperator() method without arguments
      */
-    public static boolean isOperator(Class<? extends ASTNode> classType){//A version of this method that accepts a subclass type, and uses reflection to get the version of this method in the subclass
+    public static boolean isOperator(Class<? extends ASTNode> classType){
         if(!classType.equals(ASTNode.class)) {
             try {
                 return (Boolean)classType.getMethod("isOperator", null).invoke(null, null);

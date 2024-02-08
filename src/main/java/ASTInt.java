@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ASTInt extends ASTNode implements NumberType<Integer>{
+    public static final String regularExpression = "\\d+";
     public ASTInt(String input){
         super(input);
     }
@@ -10,7 +11,7 @@ public class ASTInt extends ASTNode implements NumberType<Integer>{
 
     //Hidden static methods of the superclass
     public static String getRegex() {
-        return "\\d+";
+        return regularExpression;
     }
     public static boolean isOperator(){
         return false;

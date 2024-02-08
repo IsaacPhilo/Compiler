@@ -36,7 +36,8 @@ class Main {
             "!5 = !{!\"Ubuntu clang version 10.0.0-4ubuntu1\"}";
 
     public static void main(String[] args) {//the command-line argument should be the file-name. No decision yet on whether we need the absolute path.
-        testReflection();
+//        testReflection();
+        testMatching();
 //        FileWriter output = null; //Create the file to which we should output the llvm code
 //        boolean interpret = false;
 //        try {
@@ -100,4 +101,12 @@ class Main {
         }
     }
 
+    private static void testMatching() {
+        Scanner sc = new Scanner(System.in);
+        String input = sc.nextLine();
+        while(!input.equals("STOP")){
+            System.out.println(Tokenizer.matchedClasses(input));
+            input = sc.nextLine();
+        }
+    }
 }

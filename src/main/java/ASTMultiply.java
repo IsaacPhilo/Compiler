@@ -1,7 +1,7 @@
-public class ASTDivide extends Nonterminal{
-    public static final String regularExpression = "\\/";
-    public ASTDivide(ASTNode... childNodes){
-        super("/", childNodes);
+public class ASTMultiply extends Nonterminal{
+    public static final String regularExpression = "\\*";
+    public ASTMultiply(ASTNode... childNodes) {
+        super("*", childNodes);
     }
 
     //Hidden static methods of the superclass

@@ -1,7 +1,19 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.util.Stack;
 
 public class Tokenizer {//1 stack adds as many characters as it can to itself, 2nd stack pops from itself onto the put_back stack until itself contains a valid token, and then returns that token; then, the character at index 4 would be on the put_back stack beneath the character at index 3. The put_back stack is just to back.
+    static Class[] NodeTypes;
+
+    static {
+        try {
+            NodeTypes = new Class[] {Class.forName("ASTPlus"), Class.forName("ASTMinus"), Class.forName("ASTMultiply"), Class.forName("ASTDivide"), Class.forName("ASTInt")};
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     Stack<Character> stack;
     Scanner sc;
 
@@ -33,6 +45,20 @@ public class Tokenizer {//1 stack adds as many characters as it can to itself, 2
         }
 
         return node;
+    }
+
+    static List<Class> matchedClasses(String toMatch){
+        ArrayList<Class> matched = new ArrayList<>();
+        for(Class c: NodeTypes){
+            try {
+                if(toMatch.matches((String)(c.getField("regularExpression").get(null)))){
+                    matched.add(c);
+                }
+            } catch (NoSuchFieldException | IllegalAccessException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return matched;
     }
 }
 /*
