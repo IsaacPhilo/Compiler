@@ -5,11 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a23cd696-d4ba-4e98-b23e-5d0003a082e0" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/ASTDivide.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ASTInt.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ASTPlus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ASTMinus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Nonterminal.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/NumberType.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ASTDivide.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ASTDivide.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ASTInt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ASTInt.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ASTNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ASTNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ASTPlus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ASTPlus.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,6 +23,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -52,7 +56,7 @@
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "inlay.hints",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -85,7 +89,7 @@
       <workItem from="1706737292991" duration="3452000" />
       <workItem from="1707165077718" duration="4677000" />
       <workItem from="1707170079530" duration="3000000" />
-      <workItem from="1707337832887" duration="5919000" />
+      <workItem from="1707337832887" duration="10733000" />
     </task>
     <servers />
   </component>

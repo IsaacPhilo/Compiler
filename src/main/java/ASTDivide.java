@@ -1,19 +1,15 @@
 import java.util.List;
 
-public class ASTDivide extends ASTNode{
+public class ASTDivide extends Nonterminal{
+    public ASTDivide(ASTNode... childNodes){
+        super("/", childNodes);
+    }
 
-    @Override
-    String getRegex() {
+    //Hidden static methods of the superclass
+    public static String getRegex() {
         return "\\/";
     }
-
-    @Override
-    String getContent() {
-        return "/";
-    }
-
-    @Override
-    boolean isOperator() {
+    public static boolean isOperator() {
         return true;
     }
 }

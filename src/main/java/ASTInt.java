@@ -1,31 +1,18 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class ASTInt extends ASTNode{
-    private String content;
-
+public class ASTInt extends ASTNode implements NumberType<Integer>{
     public ASTInt(String input){
-        super();
-        content = input;
+        super(input);
     }
 
-    public int addChild(ASTNode child){//the int return value gives me the position of the added child within the array for future reference order
-        children.add(child);
-        return children.indexOf(child);
-    }
+    public Integer getValue(){return Integer.parseInt(content);}
 
-    @Override
-    public String getRegex() {
+    //Hidden static methods of the superclass
+    public static String getRegex() {
         return "\\d+";
     }
-
-    @Override
-    public String getContent(){
-        return content;
-    }
-    
-    @Override
-    public boolean isOperator(){
+    public static boolean isOperator(){
         return false;
     }
 }
