@@ -102,11 +102,20 @@ class Main {
     }
 
     private static void testMatching() {
-        Scanner sc = new Scanner(System.in);
-        String input = sc.nextLine();
-        while(!input.equals("STOP")){
-            System.out.println(Tokenizer.matchedClasses(input));
-            input = sc.nextLine();
+//        Scanner sc = new Scanner(System.in);
+//        String input = sc.nextLine();
+
+        Scanner stringScan = new Scanner("1 2 3 4 a + - / * true false");
+        Tokenizer initialize = new Tokenizer(stringScan);
+        ASTNode token = initialize.getToken();
+        while(token!=null){
+            System.out.println("Token: " + token.getContent());
+            token = initialize.getToken();
         }
+
+//        while(!input.equals("STOP")){
+//            System.out.println(Tokenizer.matchedClasses(input));
+//            input = sc.nextLine();
+//        }
     }
 }
