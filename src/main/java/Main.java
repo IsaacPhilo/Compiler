@@ -105,7 +105,7 @@ class Main {
 //        Scanner sc = new Scanner(System.in);
 //        String input = sc.nextLine();
 
-        Scanner stringScan = new Scanner("1 2 3 4 a + - / * true false");
+        Scanner stringScan = new Scanner("1 2 3 4 identifierNUMBERONE +- / * true false");
         Tokenizer initialize = new Tokenizer(stringScan);
         ASTNode token = initialize.getToken();
         while(token!=null){
