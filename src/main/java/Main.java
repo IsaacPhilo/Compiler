@@ -1,7 +1,4 @@
 import java.io.FileWriter;
-import java.io.File;
-import java.io.IOException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -102,20 +99,14 @@ class Main {
     }
 
     private static void testMatching() {
-//        Scanner sc = new Scanner(System.in);
-//        String input = sc.nextLine();
-
         Scanner stringScan = new Scanner("1 2 3 4 identifierNUMBERONE +- / * true false");
         Tokenizer initialize = new Tokenizer(stringScan);
-        ASTNode token = initialize.getToken();
+        ASTNode token = initialize.getTokenNode();
         while(token!=null){
-            System.out.println("Token: " + token.getContent());
-            token = initialize.getToken();
+            System.out.println("Token Node: " + token.getContent() + "\nToken Node Type (ASTNode type): " + token.getClass() + "\n");
+            token = initialize.getTokenNode();
         }
-
-//        while(!input.equals("STOP")){
-//            System.out.println(Tokenizer.matchedClasses(input));
-//            input = sc.nextLine();
-//        }
     }
 }
+
+//tokenizer splits code into separate string tokens; parser constructs AST from a sequence of tokens.
