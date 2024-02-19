@@ -1,4 +1,3 @@
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -14,7 +13,7 @@ public class Tokenizer {//1 stack adds as many characters as it can to itself, 2
 
     static {
         try {
-            NodeTypes = new Class[] {Class.forName("ASTPlus"), Class.forName("ASTMinus"), Class.forName("ASTMultiply"), Class.forName("ASTDivide"), Class.forName("ASTInt"), Class.forName("ASTIdentifier"), Class.forName("ASTBool"), Class.forName("ASTChar")};//leaving out byte and long literals for now
+            NodeTypes = new Class[]{Class.forName("ASTPlus"), Class.forName("ASTMinus"), Class.forName("ASTMultiply"), Class.forName("ASTDivide"), Class.forName("ASTInt"), Class.forName("ASTIdentifier"), Class.forName("ASTBool"), Class.forName("ASTChar")};//leaving out byte and long literals for now
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
@@ -23,31 +22,128 @@ public class Tokenizer {//1 stack adds as many characters as it can to itself, 2
     Stack<Character> stack;
     Scanner sc;
 
-    public Tokenizer(Scanner inputScanner){
+    public Tokenizer(Scanner inputScanner) {
         sc = inputScanner;
         sc.useDelimiter("");
         stack = new Stack<>();
         endofscanner = false;
     }
 
-    char getCharacter(){//Will get a single character, either from the stack or from the scanner depending on whether the stack has content
-        if(!stack.empty()){
+    char getCharacter() {//Will get a single character, either from the stack or from the scanner depending on whether the stack has content
+        if (!stack.empty()) {
             return stack.pop();
-        }
-        else{
-            if(sc.hasNext()){
+        } else {
+            if (sc.hasNext()) {
                 return sc.next().charAt(0);//this is assuming that the "useDelimiter("")" does result in one-character strings being returned
-            }
-            else{
+            } else {
                 endofscanner = true;
                 return '\0';
             }
         }
     }
 
-    void putBack(char c){//For when the scanner gone too far while scanning
+    void putBack(char c) {//For when the scanner gone too far while scanning
         stack.push(c);
     }
+
+    public String[] getTokenPair(){
+        if(!sc.hasNext()){
+            if(debug){
+                System.out.println("Get token returning null due to end of scanner input...");
+            }
+            return null;
+        }
+
+        if(debug){
+            System.out.println("Get token running...");
+        }
+
+        String tokenType = null;
+        String string = "";
+        boolean tooFar = false;//tooFar will become true if we need to put characters onto the stack
+        Stack<Character> localStack = new Stack<Character>();
+        List<String> matched;
+
+        while(!tooFar){//go forward
+            char currentChar = getCharacter();//get the next character
+            localStack.push(currentChar);//store it in case it needs to be put back
+            string += currentChar;//string should hold the text of our token to create and return
+            if(debug){
+                System.out.println("Character received: " + currentChar);
+                System.out.println("\"String\" equals " + string);
+            }
+
+            if(("" + currentChar).matches("\\s")){//whitespace separates all adjacent tokens if present
+                if(string.matches("\\s+")){//if all we have is whitespace so far
+                    if(sc.hasNext()){//if this isn't at the end of the file
+                        string = "";
+                        localStack = new Stack<Character>();
+
+                        if(debug){
+                            System.out.println("Restarting tokenization from a leading space...");
+                        }
+                        continue;
+                    }
+                }
+                tooFar = true;//we don't need to put the space back on the stack since we're discarding it
+                break;
+            }
+
+            matched = RegexPairs.matchedNames(string);
+
+            if(debug){
+                System.out.println("Matched == " + RegexPairs.matchedNames(string));
+            }
+            if(matched.size()==0){//if no regexes are matched among any of the classes
+                tooFar = true;
+                putBack(localStack.pop());//although the currentCharacter is the only relevant thing to put back, it might be the case that we need to put back more than one, so I'm writing this more extensibly
+            }
+        }
+        //Now it should be the case that our string only corresponds to one node type
+        //For simplicity, I won't implement byte or long functionality right now
+        string = string.substring(0, string.length()-1);
+        if(debug2){
+            System.out.println("Parsed string: " + string);
+        }
+
+        matched = RegexPairs.matchedNames(string);//find the regexes that are matched based on the string in its final form
+        if(debug2){
+            System.out.println("matched.size() == " + matched.size());
+        }
+
+        //The following line assumes, as should be the case, that only one type matches the string in its final form
+        tokenType = matched.get(0);
+        if(debug2){
+            System.out.println("token == " + tokenType);
+        }
+        return new String[]{string, tokenType};
+    }
+
+    public List<String[]> tokenize(){
+        ArrayList<String[]> tokens = new ArrayList<>();
+        String token = "";
+        do{
+            tokens.add(getTokenPair());
+        }while(tokens.get(tokens.size()-1) != null);
+        //the condition of the do-while loop implies that the last element will always be null, thus we can remove it
+        if(tokens.size()>0){tokens.remove(tokens.size()-1);}
+        return tokens;
+    }
+
+}
+/*
+Parse scanner char by char;
+if we've gone too far, take characters
+from (the stack that contains the most recently accessed character at the top),
+and put these into another stack which contains
+(the characters accessible in the scanner (original) order)
+and use these characters the next time a token is scanned
+(which is possible by examining whether the persistent stack contains characters.)
+
+Token type is determined by regex-matching to predefined token regexes
+The moment at which no regex matches is when we go back one or more characters
+
+*/
 
     //TODO: need to make a functionality for this which can tokenize into a series of tokens which are not necessarily nodes (since parentheses aren't nodes, for example)
 //    ASTNode getTokenNode(){//will return the next token node
@@ -130,34 +226,3 @@ public class Tokenizer {//1 stack adds as many characters as it can to itself, 2
 //        }
 //        return null;
 //    }
-
-    static List<Class> matchedClasses(String toMatch){
-        ArrayList<Class> matched = new ArrayList<>();
-        for(Class c: NodeTypes){
-            try {
-                if(toMatch.matches((String)(c.getField("regularExpression").get(null)))){
-                    matched.add(c);
-                }
-            } catch (NoSuchFieldException | IllegalAccessException e) {
-                throw new RuntimeException(e);
-            }
-        }
-        return matched;
-    }
-}
-
-
-
-/*
-Parse scanner char by char;
-if we've gone too far, take characters
-from (the stack that contains the most recently accessed character at the top),
-and put these into another stack which contains
-(the characters accessible in the scanner (original) order)
-and use these characters the next time a token is scanned
-(which is possible by examining whether the persistent stack contains characters.)
-
-Token type is determined by regex-matching to predefined token regexes
-The moment at which no regex matches is when we go back one or more characters
-
-*/

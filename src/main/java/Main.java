@@ -1,3 +1,5 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
@@ -98,13 +100,15 @@ class Main {
         }
     }
 
-    private static void testMatching() {
-        Scanner stringScan = new Scanner("1 2 3 4 identifierNUMBERONE +- / * true false");
-        Tokenizer initialize = new Tokenizer(stringScan);
-        ASTNode token = initialize.getTokenNode();
-        while(token!=null){
-            System.out.println("Token Node: " + token.getContent() + "\nToken Node Type (ASTNode type): " + token.getClass() + "\n");
-            token = initialize.getTokenNode();
+    static void testMatching(){
+        try {
+            Tokenizer t = new Tokenizer(new Scanner(new File("src/tokenTest.txt")));
+            List<String[]> tokens = t.tokenize();
+            for(String[] s: tokens){
+                System.out.printf("%-12s%s\n", s[1] + ":", s[0]);
+            }
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
 }
